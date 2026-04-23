@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <title>Admin — Masjid Noor Islam CMS</title>
+  <style>
+    body{margin:0;font-family:sans-serif;background:#0b3d2e}
+    .cms-loading{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      height:100vh;color:#c8a84b;gap:16px;
+    }
+    .cms-loading svg{animation:spin 1.2s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .cms-loading p{font-size:.9rem;color:rgba(255,255,255,.6);margin:0}
+  </style>
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <!-- Loading state (diganti Decap CMS setelah load) -->
+  <div class="cms-loading" id="cms-loader">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2">
+      <circle cx="12" cy="12" r="10" stroke-opacity=".25"/>
+      <path d="M12 2a10 10 0 0 1 10 10" stroke="#c8a84b"/>
+    </svg>
+    <p>Memuat Masjid Noor Islam CMS…</p>
+  </div>
+
+  <!-- Decap CMS via CDN -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Hide loader once CMS is mounted
+    window.addEventListener('load', function(){
+      setTimeout(function(){
+        var loader = document.getElementById('cms-loader');
+        if(loader) loader.style.display = 'none';
+      }, 800);
+    });
+  </script>
+</body>
+</html>
