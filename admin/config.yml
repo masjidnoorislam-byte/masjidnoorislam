@@ -1,158 +1,68 @@
-# ============================================================
+# ================================================================
 #  Decap CMS — Masjid Noor Islam Yogyakarta
-#  Docs: https://decapcms.org/docs/configuration-options/
-# ============================================================
+#  Backend: Netlify Git Gateway
+#  Storage: JSON files in /_data/
+#  Docs: https://decapcms.org/docs/
+# ================================================================
 
 backend:
   name: git-gateway
   branch: main
 
-# Media storage
-media_folder: images/uploads
-public_folder: /images/uploads
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
-# Site URL (ganti jika domain berubah)
 site_url: https://masjidnoorislam.netlify.app
 display_url: https://masjidnoorislam.netlify.app
 logo_url: /images/uploads/logo.jpg
-
-# Bahasa UI (opsional, default English)
 locale: id
 
-# ── COLLECTIONS ─────────────────────────────────────────────
+# ── COLLECTIONS ─────────────────────────────────────────────────
 collections:
 
-  # ── 1. BERANDA ────────────────────────────────────────────
-  - name: beranda
-    label: "🏠 Beranda"
-    description: "Konten utama halaman depan (hero, tagline, ayat)"
-    files:
-      - name: beranda
-        label: "Pengaturan Beranda"
-        file: _data/beranda.json
-        fields:
-          - label: "Judul Hero (baris 1)"
-            name: hero_judul
-            widget: string
-            default: "Cahaya Islam"
-            hint: "Baris pertama judul besar di hero section"
-
-          - label: "Judul Hero (baris 2 — teks emas)"
-            name: hero_judul_em
-            widget: string
-            default: "Semua"
-            hint: "Kata yang ditampilkan dengan warna emas"
-
-          - label: "Deskripsi Hero"
-            name: hero_deskripsi
-            widget: text
-            default: "Bersama kita membangun umat yang kuat, menyebarkan manfaat yang nyata — untuk Semaki, untuk Yogyakarta, untuk semua."
-
-          - label: "Teks Ayat Al-Quran (Arab)"
-            name: ayat_arab
-            widget: string
-            default: "إِنَّمَا يَعْمُرُ مَسَاجِدَ ٱللَّهِ مَنْ آمَنَ بِٱللَّهِ وَٱلْيَوْمِ ٱلْأَخِرِ"
-
-          - label: "Terjemahan Ayat"
-            name: ayat_terjemah
-            widget: string
-            default: "Sesungguhnya yang memakmurkan masjid Allah hanyalah orang yang beriman. — QS. At-Taubah: 18"
-
-          - label: "CTA Banner Quote"
-            name: cta_quote
-            widget: string
-            default: "Setiap Rupiah yang Anda Titipkan Adalah Cahaya bagi Sesama"
-
-          - label: "CTA Banner Sub-teks"
-            name: cta_sub
-            widget: string
-            default: "Infaq Anda membantu memakmurkan masjid, mendidik generasi, dan meringankan beban saudara kita."
-
-  # ── 2. PROFIL MASJID ──────────────────────────────────────
-  - name: profil
-    label: "🕌 Profil Masjid"
-    description: "Visi, misi, sejarah, dan struktur organisasi"
-    files:
-      - name: profil
-        label: "Pengaturan Profil"
-        file: _data/profil.json
-        fields:
-          - label: "Visi"
-            name: visi
-            widget: text
-            default: "Menjadi pusat ibadah, pendidikan, dan pemberdayaan umat yang amanah, inklusif, dan memberikan manfaat nyata bagi masyarakat Semaki, Umbulharjo, dan seluruh kota Yogyakarta."
-
-          - label: "Misi (satu per baris)"
-            name: misi
-            widget: list
-            label_singular: "Poin Misi"
-            fields:
-              - {label: "Judul", name: judul, widget: string}
-              - {label: "Deskripsi", name: deskripsi, widget: text}
-
-          - label: "Paragraf Sejarah"
-            name: sejarah
-            widget: list
-            label_singular: "Paragraf"
-            fields:
-              - {label: "Isi Paragraf", name: isi, widget: text}
-
-          - label: "Foto Masjid (Halaman Sejarah)"
-            name: foto_masjid
-            widget: image
-            required: false
-            hint: "Foto eksterior atau interior masjid untuk halaman Profil"
-
-          - label: "Nama Ketua Takmir"
-            name: ketua
-            widget: string
-            default: "[Nama Ketua Umum]"
-
-          - label: "Nama Wakil Ketua"
-            name: wakil
-            widget: string
-            default: "[Nama]"
-
-          - label: "Nama Sekretaris"
-            name: sekretaris
-            widget: string
-            default: "[Nama]"
-
-          - label: "Nama Bendahara"
-            name: bendahara
-            widget: string
-            default: "[Nama]"
-
-  # ── 3. KEGIATAN / BERITA ──────────────────────────────────
+  # ── 1. KEGIATAN ───────────────────────────────────────────────
   - name: kegiatan
-    label: "📅 Kegiatan & Berita"
-    description: "Berita dan kegiatan yang tampil di halaman Beranda & Kegiatan"
-    folder: _data/kegiatan
+    label: "📅 Kegiatan"
+    label_singular: "Kegiatan"
+    description: "Agenda dan kegiatan rutin masjid. Maksimal 3 item tampil di Beranda."
+    folder: "_data/kegiatan"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    delete: true
+    slug: "{{slug}}"
     identifier_field: judul
     summary: "{{judul}} — {{tanggal}}"
+    sortable_fields: ["tanggal", "urutan", "judul"]
+    view_filters:
+      - label: "Aktif"
+        field: status
+        pattern: true
+      - label: "Arsip"
+        field: status
+        pattern: false
     fields:
       - label: "Judul Kegiatan"
         name: judul
         widget: string
-        hint: "Contoh: Kajian Ahad Pagi: Fikih Muamalah di Era Digital"
+        hint: "Contoh: Kajian Tafsir Al-Qur'an bersama Ust. Ahmad"
 
       - label: "Kategori"
         name: kategori
         widget: select
         options:
-          - {label: "Kajian", value: "Kajian"}
-          - {label: "Sosial", value: "Sosial"}
-          - {label: "Pendidikan", value: "Pendidikan"}
-          - {label: "Pengumuman", value: "Pengumuman"}
-          - {label: "Umum", value: "Umum"}
-        default: "Umum"
+          - { label: "📖 Kajian", value: "Kajian" }
+          - { label: "🤲 Sosial", value: "Sosial" }
+          - { label: "📚 Pendidikan", value: "Pendidikan" }
+          - { label: "📢 Pengumuman", value: "Pengumuman" }
+          - { label: "🕌 Umum", value: "Umum" }
+        default: "Kajian"
 
-      - label: "Tanggal Tampil"
+      - label: "Tanggal"
         name: tanggal
-        widget: string
-        hint: "Contoh: Ahad, 13 April 2025"
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "DD MMMM YYYY"
+        time_format: false
+        hint: "Tanggal pelaksanaan kegiatan"
 
       - label: "Waktu"
         name: waktu
@@ -166,158 +76,151 @@ collections:
         default: "Masjid Noor Islam"
         required: false
 
-      - label: "Deskripsi Singkat"
-        name: deskripsi
-        widget: text
-        hint: "Teks yang muncul di kartu berita (maks 2–3 kalimat)"
-
       - label: "Gambar"
         name: gambar
         widget: image
         required: false
-        hint: "Ukuran ideal: 600×300px"
+        hint: "Ukuran ideal: 600×300px. Kosongkan untuk gambar otomatis."
+        allow_multiple: false
 
-      - label: "Status"
+      - label: "Deskripsi Singkat"
+        name: deskripsi
+        widget: text
+        hint: "Tampil di kartu kegiatan. Maksimal 120 karakter."
+        pattern: [".{1,200}", "Terlalu panjang — maksimal 200 karakter"]
+
+      - label: "Isi Lengkap (opsional)"
+        name: body
+        widget: markdown
+        required: false
+        hint: "Isi detail untuk halaman ?detail=slug. Mendukung format Markdown."
+        minimal: true
+
+      - label: "Tampilkan di website"
         name: status
-        widget: select
-        options:
-          - {label: "Aktif (tampil)", value: "aktif"}
-          - {label: "Arsip (disembunyikan)", value: "arsip"}
-        default: "aktif"
+        widget: boolean
+        default: true
+        hint: "Nonaktifkan untuk menyembunyikan kegiatan ini"
 
       - label: "Urutan Tampil"
         name: urutan
         widget: number
         default: 99
-        hint: "Angka kecil = tampil lebih awal. Maks 3 item tampil di Beranda."
+        value_type: int
+        min: 1
+        max: 999
+        hint: "Angka lebih kecil tampil lebih awal. Urutan 1 = unggulan (featured)."
 
-  # ── 4. DONASI / ZISWAF ────────────────────────────────────
+  # ── 2. DONASI ─────────────────────────────────────────────────
   - name: donasi
-    label: "💛 Donasi & ZISWAF"
-    description: "Pengaturan QRIS, rekening bank, dan teks donasi"
+    label: "💛 Donasi & Rekening"
+    description: "Informasi rekening bank dan QR Code QRIS untuk donasi"
     files:
       - name: donasi
         label: "Pengaturan Donasi"
-        file: _data/donasi.json
+        file: "_data/donasi.json"
         fields:
           - label: "Nama Rekening"
             name: nama_rekening
             widget: string
             default: "Masjid Noor Islam"
+            hint: "Nama pemilik rekening"
 
           - label: "Nomor Rekening BSI"
             name: nomor_rekening
             widget: string
-            default: "[Nomor Rekening BSI]"
-
-          - label: "Kode Bank"
-            name: kode_bank
-            widget: string
-            default: "451 — BSI"
-
-          - label: "NMID QRIS"
-            name: nmid
-            widget: string
-            default: "ID1024346225609"
+            default: ""
+            hint: "Contoh: 7140123456789"
 
           - label: "Gambar QR Code QRIS"
             name: qris_image
             widget: image
             required: false
-            hint: "Upload gambar QR Code QRIS Anda (ukuran 220×220px)"
+            hint: "Upload gambar QR QRIS Anda. Ukuran: 220×220px."
 
-          - label: "Nomor WhatsApp Konfirmasi"
-            name: wa_konfirmasi
-            widget: string
-            default: "6281234567890"
-            hint: "Format: 628xxxxxxxxxx (tanpa + dan tanpa spasi)"
-
-  # ── 5. KONTAK & FOOTER ────────────────────────────────────
+  # ── 3. KONTAK ─────────────────────────────────────────────────
   - name: kontak
-    label: "📞 Kontak & Footer"
-    description: "Informasi kontak, alamat, dan jam kegiatan"
+    label: "📞 Kontak & Lokasi"
+    description: "Nomor WhatsApp, alamat, dan embed Google Maps"
     files:
       - name: kontak
         label: "Pengaturan Kontak"
-        file: _data/kontak.json
+        file: "_data/kontak.json"
         fields:
+          - label: "Nomor WhatsApp"
+            name: whatsapp
+            widget: string
+            default: "6281234567890"
+            hint: "Format: 628xxxxxxxxxx (tanpa + dan spasi)"
+
           - label: "Alamat Lengkap"
             name: alamat
             widget: string
             default: "Jl. Gayam No.19, Semaki, Umbulharjo, Yogyakarta 55166"
 
-          - label: "Nomor WhatsApp"
-            name: whatsapp
+          - label: "Google Maps Embed URL"
+            name: maps_embed
             widget: string
-            default: "+62 8xx-xxxx-xxxx"
+            required: false
+            hint: "Salin URL dari Google Maps → Share → Embed a map → salin src='...'"
 
-          - label: "Username Instagram"
-            name: instagram
+  # ── 4. TRANSPARANSI ───────────────────────────────────────────
+  - name: transparansi
+    label: "📊 Transparansi Keuangan"
+    description: "URL Google Sheets untuk embed laporan keuangan"
+    files:
+      - name: transparansi
+        label: "Pengaturan Transparansi"
+        file: "_data/transparansi.json"
+        fields:
+          - label: "URL Google Sheets (embed)"
+            name: embed_url
             widget: string
-            default: "@masjidnoorislam.yk"
+            required: false
+            hint: "Dari Google Sheets: File → Share → Publish to web → salin URL"
 
-          - label: "Alamat Email"
-            name: email
-            widget: string
-            default: "masjidnoorislam.yk@gmail.com"
-
-          - label: "Jam Buka Masjid"
-            name: jam_buka
-            widget: string
-            default: "04.00–21.30 WIB (Setiap hari)"
-
-          - label: "Jam TPA"
-            name: jam_tpa
-            widget: string
-            default: "15.30–17.00 WIB (Senin–Sabtu)"
-
-          - label: "Jam Kajian Ahad"
-            name: jam_kajian_ahad
-            widget: string
-            default: "05.30–07.00 WIB"
-
-          - label: "Jam Kajian Malam"
-            name: jam_kajian_malam
-            widget: string
-            default: "19.30–21.00 WIB (Senin & Kamis)"
-
-  # ── 6. JADWAL SHOLAT (Override Manual) ───────────────────
-  - name: jadwal_sholat
-    label: "🕌 Jadwal Sholat (Override)"
-    description: "Override manual jadwal sholat. Kosongkan untuk pakai API otomatis."
+  # ── 5. JADWAL SHOLAT ──────────────────────────────────────────
+  - name: jadwal
+    label: "🕌 Jadwal Sholat"
+    description: "Override jadwal sholat manual. Biarkan kosong untuk pakai API otomatis."
     files:
       - name: jadwal
-        label: "Jadwal Sholat Manual"
-        file: _data/jadwal.json
+        label: "Jadwal Sholat"
+        file: "_data/jadwal.json"
         fields:
-          - label: "Gunakan jadwal manual (nonaktifkan API)"
+          - label: "Aktifkan jadwal manual"
             name: manual_mode
             widget: boolean
             default: false
-            hint: "Aktifkan hanya jika ingin override jadwal API"
+            hint: "Aktifkan hanya jika ingin override jadwal dari API Aladhan"
 
           - label: "Subuh"
             name: subuh
             widget: string
             default: ""
-            hint: "Format: HH:MM (cth: 04:15). Kosongkan untuk pakai API."
+            required: false
+            hint: "Format: HH:MM — contoh: 04:15"
 
           - label: "Dzuhur"
             name: dzuhur
             widget: string
             default: ""
+            required: false
 
           - label: "Ashar"
             name: ashar
             widget: string
             default: ""
+            required: false
 
           - label: "Maghrib"
             name: maghrib
             widget: string
             default: ""
+            required: false
 
           - label: "Isya"
             name: isya
             widget: string
             default: ""
+            required: false
