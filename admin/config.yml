@@ -1,19 +1,20 @@
 # ================================================================
 #  Decap CMS — Masjid Noor Islam Yogyakarta
-#  Backend: Netlify Git Gateway
-#  Storage: JSON files in /_data/
-#  Docs: https://decapcms.org/docs/
+#  Backend: GitHub via Cloudflare Workers (OAuth)
 # ================================================================
 
 backend:
-  name: git-gateway
+  name: github
+  repo: masjidnoorislam-byte/adamasjid.com
   branch: main
+  base_url: https://fancy-star-77d2.masjidnoorislam.workers.dev
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://masjidnoorislam.netlify.app
-display_url: https://masjidnoorislam.netlify.app
+site_url: https://masjidnoorislam.pages.dev
+display_url: https://masjidnoorislam.pages.dev
 logo_url: /images/uploads/logo.jpg
 locale: id
 
@@ -108,119 +109,4 @@ collections:
         default: 99
         value_type: int
         min: 1
-        max: 999
-        hint: "Angka lebih kecil tampil lebih awal. Urutan 1 = unggulan (featured)."
-
-  # ── 2. DONASI ─────────────────────────────────────────────────
-  - name: donasi
-    label: "💛 Donasi & Rekening"
-    description: "Informasi rekening bank dan QR Code QRIS untuk donasi"
-    files:
-      - name: donasi
-        label: "Pengaturan Donasi"
-        file: "_data/donasi.json"
-        fields:
-          - label: "Nama Rekening"
-            name: nama_rekening
-            widget: string
-            default: "Masjid Noor Islam"
-            hint: "Nama pemilik rekening"
-
-          - label: "Nomor Rekening BSI"
-            name: nomor_rekening
-            widget: string
-            default: ""
-            hint: "Contoh: 7140123456789"
-
-          - label: "Gambar QR Code QRIS"
-            name: qris_image
-            widget: image
-            required: false
-            hint: "Upload gambar QR QRIS Anda. Ukuran: 220×220px."
-
-  # ── 3. KONTAK ─────────────────────────────────────────────────
-  - name: kontak
-    label: "📞 Kontak & Lokasi"
-    description: "Nomor WhatsApp, alamat, dan embed Google Maps"
-    files:
-      - name: kontak
-        label: "Pengaturan Kontak"
-        file: "_data/kontak.json"
-        fields:
-          - label: "Nomor WhatsApp"
-            name: whatsapp
-            widget: string
-            default: "6281234567890"
-            hint: "Format: 628xxxxxxxxxx (tanpa + dan spasi)"
-
-          - label: "Alamat Lengkap"
-            name: alamat
-            widget: string
-            default: "Jl. Gayam No.19, Semaki, Umbulharjo, Yogyakarta 55166"
-
-          - label: "Google Maps Embed URL"
-            name: maps_embed
-            widget: string
-            required: false
-            hint: "Salin URL dari Google Maps → Share → Embed a map → salin src='...'"
-
-  # ── 4. TRANSPARANSI ───────────────────────────────────────────
-  - name: transparansi
-    label: "📊 Transparansi Keuangan"
-    description: "URL Google Sheets untuk embed laporan keuangan"
-    files:
-      - name: transparansi
-        label: "Pengaturan Transparansi"
-        file: "_data/transparansi.json"
-        fields:
-          - label: "URL Google Sheets (embed)"
-            name: embed_url
-            widget: string
-            required: false
-            hint: "Dari Google Sheets: File → Share → Publish to web → salin URL"
-
-  # ── 5. JADWAL SHOLAT ──────────────────────────────────────────
-  - name: jadwal
-    label: "🕌 Jadwal Sholat"
-    description: "Override jadwal sholat manual. Biarkan kosong untuk pakai API otomatis."
-    files:
-      - name: jadwal
-        label: "Jadwal Sholat"
-        file: "_data/jadwal.json"
-        fields:
-          - label: "Aktifkan jadwal manual"
-            name: manual_mode
-            widget: boolean
-            default: false
-            hint: "Aktifkan hanya jika ingin override jadwal dari API Aladhan"
-
-          - label: "Subuh"
-            name: subuh
-            widget: string
-            default: ""
-            required: false
-            hint: "Format: HH:MM — contoh: 04:15"
-
-          - label: "Dzuhur"
-            name: dzuhur
-            widget: string
-            default: ""
-            required: false
-
-          - label: "Ashar"
-            name: ashar
-            widget: string
-            default: ""
-            required: false
-
-          - label: "Maghrib"
-            name: maghrib
-            widget: string
-            default: ""
-            required: false
-
-          - label: "Isya"
-            name: isya
-            widget: string
-            default: ""
-            required: false
+        max:
