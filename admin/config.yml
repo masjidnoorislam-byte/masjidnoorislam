@@ -10,47 +10,14 @@ public_folder: "/images/uploads"
 
 site_url: https://masjidnoorislam.pages.dev
 display_url: https://masjidnoorislam.pages.dev
-logo_url: /images/uploads/logo.jpg
 locale: id
 
 collections:
   - name: kegiatan
     label: "📅 Kegiatan"
-    label_singular: "Kegiatan"
     folder: "_data/kegiatan"
     create: true
-    delete: true
-    slug: "{{slug}}"
     fields:
-      - {label: "Judul Kegiatan", name: judul, widget: string}
-      - {label: "Kategori", name: kategori, widget: select, options: ["Kajian", "Sosial", "Pendidikan", "Pengumuman", "Umum"]}
-      - {label: "Tanggal", name: tanggal, widget: datetime, format: "YYYY-MM-DD"}
-      - {label: "Waktu", name: waktu, widget: string, required: false}
-      - {label: "Tempat", name: tempat, widget: string, default: "Masjid Noor Islam"}
-      - {label: "Gambar", name: gambar, widget: image, required: false}
-      - {label: "Deskripsi Singkat", name: deskripsi, widget: text}
-      - {label: "Isi Lengkap", name: body, widget: markdown, required: false}
-      - {label: "Status", name: status, widget: boolean, default: true}
-      - {label: "Urutan", name: urutan, widget: number, default: 99}
-
-  - name: donasi
-    label: "💛 Donasi"
-    files:
-      - name: donasi_file
-        label: "Data Donasi"
-        file: "_data/donasi.json"
-        fields:
-          - {label: "Nama Rekening", name: nama_rekening, widget: string}
-          - {label: "Nomor Rekening", name: nomor_rekening, widget: string}
-          - {label: "QRIS", name: qris_image, widget: image, required: false}
-
-  - name: kontak
-    label: "📞 Kontak"
-    files:
-      - name: kontak_file
-        label: "Setelan Kontak"
-        file: "_data/kontak.json"
-        fields:
-          - {label: "WhatsApp", name: whatsapp, widget: string}
-          - {label: "Alamat", name: alamat, widget: string}
-          - {label: "Maps URL", name: maps_embed, widget: string}
+      - {label: "Judul", name: judul, widget: string}
+      - {label: "Tanggal", name: tanggal, widget: datetime}
+      - {label: "Isi", name: body, widget: markdown}
