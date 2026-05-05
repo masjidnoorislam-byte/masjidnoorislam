@@ -5,26 +5,32 @@
   <title>Admin Masjid Noor Islam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- 🔥 FIX CDN (lebih stabil dari unpkg) -->
-  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.1.0/dist/decap-cms.js"></script>
+  <!-- ✅ Gunakan versi stabil, JANGAN beta -->
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
 </head>
 
 <body>
 
+<!-- 🔥 ROOT CONTAINER (INI KUNCI FIX ERROR appendChild) -->
+<div id="nc-root"></div>
+
 <script>
-  console.log("START CMS INIT");
+  console.log("INIT CMS...");
 
   function initCMS() {
     if (window.CMS) {
-      console.log("CMS FOUND → INIT");
-      window.CMS.init();
+      console.log("CMS FOUND");
+
+      window.CMS.init({
+        config: "/admin/config.yml"
+      });
+
     } else {
       console.log("WAITING CMS...");
       setTimeout(initCMS, 300);
     }
   }
 
-  // 🔥 FORCE INIT LOOP (anti race condition)
   initCMS();
 </script>
 
