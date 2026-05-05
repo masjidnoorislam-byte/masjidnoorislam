@@ -1,6 +1,23 @@
 backend:
   name: github
-  repo: masjidnoorislam-byte/adamasjid.com
+  repo: masjidnoorislam-byte/masjidnoorislam
   branch: main
   base_url: https://auth.masjidnoorislam.workers.dev
   auth_endpoint: auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://masjidnoorislam.pages.dev
+display_url: https://masjidnoorislam.pages.dev
+locale: id
+
+collections:
+  - name: kegiatan
+    label: "📅 Kegiatan"
+    folder: "_data/kegiatan"
+    create: true
+    fields:
+      - {label: "Judul", name: judul, widget: string}
+      - {label: "Tanggal", name: tanggal, widget: datetime}
+      - {label: "Isi", name: body, widget: markdown}
