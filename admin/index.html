@@ -5,33 +5,17 @@
   <title>Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.10.192/dist/netlify-cms.js"></script>
 
   <style>
-    body {
-      margin: 0;
-    }
+    body { margin: 0; }
   </style>
 </head>
 
 <body>
 
-<!-- 🔥 INI WAJIB ADA -->
-<div id="nc-root"></div>
-
-<script>
-  // 🔥 Paksa CMS mount ke container
-  window.CMS_MANUAL_INIT = true;
-
-  window.addEventListener("load", function () {
-    if (window.CMS) {
-      window.CMS.init({
-        config: "/admin/config.yml"
-      });
-    }
-  });
-</script>
+<!-- 🔥 ROOT HARUS ID INI -->
+<div id="root"></div>
 
 </body>
 </html>
