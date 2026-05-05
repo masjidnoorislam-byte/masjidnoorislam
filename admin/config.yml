@@ -2,7 +2,7 @@ backend:
   name: github
   repo: masjidnoorislam-byte/adamasjid.com
   branch: main
-  base_url: https://fancy-star-77d2.masjidnoorislam.workers.dev
+  base_url: https://auth.masjidnoorislam.workers.dev
   auth_endpoint: auth
 
 media_folder: "images/uploads"
