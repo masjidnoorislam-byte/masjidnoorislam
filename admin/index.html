@@ -5,8 +5,28 @@
   <title>Admin Masjid Noor Islam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- 🔥 FIX CDN (lebih stabil dari unpkg) -->
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.1.0/dist/decap-cms.js"></script>
 </head>
+
 <body>
+
+<script>
+  console.log("START CMS INIT");
+
+  function initCMS() {
+    if (window.CMS) {
+      console.log("CMS FOUND → INIT");
+      window.CMS.init();
+    } else {
+      console.log("WAITING CMS...");
+      setTimeout(initCMS, 300);
+    }
+  }
+
+  // 🔥 FORCE INIT LOOP (anti race condition)
+  initCMS();
+</script>
+
 </body>
 </html>
