@@ -17,13 +17,10 @@ collections:
   - name: kegiatan
     label: "📅 Kegiatan"
     label_singular: "Kegiatan"
-    description: "Agenda dan kegiatan rutin masjid."
     folder: "_data/kegiatan"
     create: true
     delete: true
     slug: "{{slug}}"
-    identifier_field: judul
-    summary: "{{judul}} — {{tanggal}}"
     fields:
       - {label: "Judul Kegiatan", name: judul, widget: string}
       - {label: "Kategori", name: kategori, widget: select, options: ["Kajian", "Sosial", "Pendidikan", "Pengumuman", "Umum"]}
@@ -39,18 +36,18 @@ collections:
   - name: donasi
     label: "💛 Donasi"
     files:
-      - name: donasi
-        label: "Rekening"
+      - name: donasi_file
+        label: "Data Donasi"
         file: "_data/donasi.json"
         fields:
           - {label: "Nama Rekening", name: nama_rekening, widget: string}
           - {label: "Nomor Rekening", name: nomor_rekening, widget: string}
-          - {label: "QRIS", name: qris_image, widget: image}
+          - {label: "QRIS", name: qris_image, widget: image, required: false}
 
   - name: kontak
     label: "📞 Kontak"
     files:
-      - name: kontak
+      - name: kontak_file
         label: "Setelan Kontak"
         file: "_data/kontak.json"
         fields:
