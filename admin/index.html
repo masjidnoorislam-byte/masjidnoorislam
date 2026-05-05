@@ -15,11 +15,8 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     .cms-loading p{font-size:.9rem;color:rgba(255,255,255,.6);margin:0}
   </style>
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <!-- Loading state (diganti Decap CMS setelah load) -->
   <div class="cms-loading" id="cms-loader">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2">
       <circle cx="12" cy="12" r="10" stroke-opacity=".25"/>
@@ -28,10 +25,11 @@
     <p>Memuat Masjid Noor Islam CMS…</p>
   </div>
 
-  <!-- Decap CMS via CDN -->
+  <!-- Script CMS Utama -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
   <script>
-    // Hide loader once CMS is mounted
+    // Menghilangkan loader saat CMS sudah siap
     window.addEventListener('load', function(){
       setTimeout(function(){
         var loader = document.getElementById('cms-loader');
