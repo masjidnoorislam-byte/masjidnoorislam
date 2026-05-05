@@ -5,42 +5,14 @@
   <title>Admin Masjid Noor Islam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- 🔥 GUNAKAN NETLIFY CMS (STABIL) -->
+  <script src="https://unpkg.com/netlify-cms@^2.10.192/dist/netlify-cms.js"></script>
+
   <style>
     body { margin: 0; }
   </style>
 </head>
 
 <body>
-
-<div id="root"></div>
-
-<script>
-  console.log("WAIT DOM READY...");
-
-  window.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM READY");
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js";
-
-    script.onload = function () {
-      console.log("CMS LOADED");
-
-      if (window.CMS) {
-        console.log("INIT CMS");
-
-        window.CMS.init({
-          config: "/admin/config.yml"
-        });
-
-      } else {
-        console.error("CMS NOT FOUND");
-      }
-    };
-
-    document.body.appendChild(script);
-  });
-</script>
-
 </body>
 </html>
