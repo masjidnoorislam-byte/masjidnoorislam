@@ -3,14 +3,11 @@ backend:
   repo: masjidnoorislam-byte/adamasjid.com
   branch: main
 
-  base_url: https://auth.masjidnoorislam.workers.dev
-  auth_endpoint: auth
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 site_url: https://masjidnoorislam.pages.dev
 display_url: https://masjidnoorislam.pages.dev
-
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
 
 collections:
   - name: "kegiatan"
