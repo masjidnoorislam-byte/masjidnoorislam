@@ -17,10 +17,13 @@ collections:
   - name: kegiatan
     label: "📅 Kegiatan"
     label_singular: "Kegiatan"
+    description: "Agenda dan kegiatan rutin masjid."
     folder: "_data/kegiatan"
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: judul
+    summary: "{{judul}} — {{tanggal}}"
     fields:
       - {label: "Judul Kegiatan", name: judul, widget: string}
       - {label: "Kategori", name: kategori, widget: select, options: ["Kajian", "Sosial", "Pendidikan", "Pengumuman", "Umum"]}
@@ -50,3 +53,7 @@ collections:
       - name: kontak
         label: "Setelan Kontak"
         file: "_data/kontak.json"
+        fields:
+          - {label: "WhatsApp", name: whatsapp, widget: string}
+          - {label: "Alamat", name: alamat, widget: string}
+          - {label: "Maps URL", name: maps_embed, widget: string}
