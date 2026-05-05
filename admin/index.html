@@ -5,33 +5,47 @@
   <title>Admin Masjid Noor Islam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- ✅ Gunakan versi stabil, JANGAN beta -->
+  <!-- 🔥 IMPORTANT: pakai versi stabil -->
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔥 ROOT CONTAINER (INI KUNCI FIX ERROR appendChild) -->
-<div id="nc-root"></div>
+<!-- 🔥 ROOT HARUS ID INI -->
+<div id="root"></div>
 
 <script>
-  console.log("INIT CMS...");
+  console.log("INIT CMS FIX...");
 
-  function initCMS() {
-    if (window.CMS) {
-      console.log("CMS FOUND");
+  function startCMS() {
+    if (!window.CMS) {
+      console.log("WAIT CMS...");
+      return setTimeout(startCMS, 300);
+    }
 
-      window.CMS.init({
-        config: "/admin/config.yml"
-      });
+    console.log("CMS READY");
 
+    window.CMS.init({
+      config: "/admin/config.yml",
+      load_config_file: true
+    });
+
+    // 🔥 PAKSA RENDER KE ROOT
+    const root = document.getElementById("root");
+    if (!root) {
+      console.error("ROOT NOT FOUND");
     } else {
-      console.log("WAITING CMS...");
-      setTimeout(initCMS, 300);
+      console.log("ROOT OK");
     }
   }
 
-  initCMS();
+  startCMS();
 </script>
 
 </body>
